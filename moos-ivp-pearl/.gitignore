@@ -1,0 +1,8 @@
+/bin
+/build
+/lib
+ethan_sim/
+**/targ_pearl.moos
+**/targ_pearl.bhv
+**/targ_shoreside.moos
+**/.LastOpenedMOOSLogDirectory

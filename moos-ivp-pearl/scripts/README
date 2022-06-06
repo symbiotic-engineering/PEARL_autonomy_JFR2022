@@ -1,0 +1,56 @@
+#########################################################################
+Directory for Arduino sketches to be used on front seat (currently an 
+Arduino MEGA) for the PEARL platform.
+#########################################################################
+
+The current front seat architecture utilizes an NXP 9-dof IMU board and
+the Madgwick filter for sensor fusion.
+
+The following Arduino libraries are required (some of these libraries 
+have other library dependencies that will be installed at the same time):
+Adafruit Sensor Calibration
+Adafruit AHRS
+Adafruit Sensor Lab
+IBusBM
+
+#========================================================================
+# PEARL_frontseat_v2
+#========================================================================
+Script to be used on PEARL's frontseat during operation. RC control is
+implemented for manual control of motors and autonomous mission override.
+
+NMEA sentences sent over serial port from Arduino to RPi:
+$PLIMU,<manual control flag>,<yaw>,<pitch>,<roll>*
+$PLRAW,<Acc X>,<Acc Y>,<Acc Z>,<Gyro X>,<Gyro Y>,<Gyro Z>,<Mag X>,<Mag Y>,<Mag Z>*
+$PLMOT,<last commanded left thrust percentage>,<last commanded right thrust percentage>*
+
+NMEA sentences sent over serial port from RPi to Arduino:
+$PICOM,<desired left motor thrust percentage>,<desired right motor thrust percentage>*
+
+#========================================================================
+# PEARL_imu_calibration
+#========================================================================
+Script for calibrating the NXP IMU implemented on PEARL's frontseat. Requires
+use of the RC controller. Refer to README_calibration for instructions on 
+performing the calibration.
+
+#========================================================================
+# sensor_write_calibration
+#========================================================================
+Script for writing calibrations to the Arduino, which are stored in 
+permanent memory on the board. Inputs within the scripts are:
+-Hard iron offsets (uTesla)
+-Soft iron offsets (uTesla) (don't need to change these)
+-Gyro zero-rate offsets (rad/s)
+-Accelerometer zero-rate offsets (m/s^2)
+
+You can use the sketch at Examples->Adafruit Sensor Calibration->sensor_calibration_read
+to view the current calibrations stored on the board.
+
+#========================================================================
+# arduino[Accel/Euler/Gyro/Mag]Plot.py
+#========================================================================
+Python scripts for plotting IMU data from the frontseat in real-time. To
+use, set DEBUG_MODE=true in PEARL_frontseat_v2 sketch and set debug_type
+to the desired quantity. Reupload the sketch and run the appropriate 
+Python script. 

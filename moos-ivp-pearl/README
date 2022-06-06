@@ -1,0 +1,127 @@
+***8/4/2021: There is currently a bug in the latest version of MOOS-IvP 
+causing the pEchoVar app to not work. This can be fixed by opening
+/moos-ivp/ivp/src/lib_logic/LogicBuffer.h and changing line 37 from
+{m_info_buffer=0} to {m_info_buffer=new InfoBuffer;}. Rebuild MOOS-IvP using
+the instructions below.
+
+
+##############################################################################
+# FILE:        moos-ivp-pearl/README
+# DATE:        01/14/2021
+# DESCRIPTION: Contains important information regarding the moos-ivp-pearl
+#              repository.
+##############################################################################
+#=============================================================================
+# Introduction
+#=============================================================================
+The moos-ivp-pearl repository contains an interface for extending the MOOS-IvP
+autonomy system to work on the MIT PEARL autonomous platform. Implemented on 
+a Raspberry Pi 4B board running Raspbian OS.
+
+#=============================================================================
+# Directory Structure
+#=============================================================================
+The directory structure for the moos-ivp-extend is decribed below:
+
+missions         - Directory for mission files
+scripts          - Directory for script files, including frontseat code
+src              - Directory for source code
+CMakeLists.txt   - CMake configuration file for the project
+README           - Contains helpful information - (this file).
+build.sh         - Script for building moos-ivp-pearl
+clean.sh         - Script for removing moos-ivp-pearl build files
+
+#=============================================================================
+# Update Instructions
+#=============================================================================
+#--------------------
+# moos-ivp
+#--------------------
+To update MOOS-IvP to the latest version, execute the following from terminal:
+
+	$ cd ~
+	$ cd moos-ivp
+	$ svn update
+	$ ./build-moos.sh
+	$ ./build-ivp.sh
+	
+#-------------------
+# moos-ivp-pearl
+#-------------------
+To update moos-ivp-pearl to the latest version, execute the following from terminal:
+
+	$ cd ~
+	$ cd moos-ivp-pearl
+	$ git pull
+	$ ./build.sh [--mac] (use --mac flag if building on a Mac) 
+
+#=============================================================================
+# Installation Instructions -- for MacOS
+#=============================================================================
+#--------------------
+# moos-ivp setup
+#--------------------
+To set up MOOS-IvP, execute the following from terminal:
+
+	$ cd ~
+	$ sudo port install cmake
+	$ sudo port install subversion
+	$ sudo port install wget
+	$ sudo port install tiff
+	$ sudo port install fltk-devel
+	$ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/trunk/ moos-ivp
+	$ cd ~/moos-ivp/
+	$ svn update
+	$ ./build-moos.sh
+	$ ./build-ivp.sh
+	Add this line to the end of the .bashrc file: 
+	export PATH=$PATH:~/moos-ivp/bin
+	$ source ~/.bashrc
+	
+Follow the moos-ivp-pearl installation instructions below.
+	
+Setup guide from 2.680 labs: https://oceanai.mit.edu/ivpman/pmwiki/pmwiki.php?n=Lab.ClassSetup
+
+#=============================================================================
+# Installation Instructions -- for Linux
+#=============================================================================
+#--------------------
+# moos-ivp setup
+#--------------------
+To set up MOOS-IvP, execute the following from terminal:
+
+	$ cd ~
+	$ sudo apt-get install subversion
+	$ svn co https://oceanai.mit.edu/svn/moos-ivp-aro/trunk/ moos-ivp
+	$ cd ~/moos-ivp/
+	$ svn update
+	$ sudo apt-get install g++ cmake xterm libfltk1.3-dev freeglut3-dev
+	$ sudo apt-get install libpng-dev libxft-dev libxinerama-dev libtiff5-dev
+	$ cd ~/moos-ivp/
+	$ ./build-moos.sh
+	$ ./build-ivp.sh
+	Add this line to the end of the .bashrc file: 
+	export PATH=$PATH:~/moos-ivp/bin
+	$ source ~/.bashrc
+
+#----------------------------------------------------------------
+# moos-ivp-pearl extension setup -- same for MacOS and Linux
+#----------------------------------------------------------------
+To set up moos-ivp-pearl, execute the following from terminal:
+
+	$ cd ~
+	$ git clone https://github.com/PEARLAUV/moos-ivp-pearl.git
+	$ cd ~/moos-ivp-pearl
+	$ mkdir build
+	$ mkdir lib
+	$ ./build.sh [--mac] (use --mac flag if building on a Mac) 
+	Add this line to the end of the .bashrc file: 
+	export PATH=$PATH:~/moos-ivp-pearl/bin
+	$ source ~/.bashrc
+	
+Add all files from the /missions/images folder to /moos-ivp/ivp/data 
+
+##############################################################################
+#                               END of README
+##############################################################################
+
